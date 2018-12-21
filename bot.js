@@ -33,7 +33,7 @@ var prefix = "$";
     if (message.guild) {
    let embed = new Discord.RichEmbed()
     let args = message.content.split(' ').slice(1).join(' ');
-if(message.content.split(' ')[0] == prefix + 'bc4') {
+if(message.content.split(' ')[0] == 'kbndjfnhfn') {
     if (!args[1]) {
 message.channel.send("**bc <message>**");
 return;
