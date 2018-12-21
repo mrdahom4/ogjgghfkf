@@ -26,15 +26,58 @@ client.on('ready', () => {
   console.log('')
 });
 
-client.on('guildMemberAdd', member => {
-  member.guild.fetchInvites().then(guildInvites => {
-    const ei = invites[member.guild.id];
-    invites[member.guild.id] = guildInvites;
-    const invite = guildInvites.find(i => ei.get(i.code).uses < i.uses);
-    const inviter = client.users.get(invite.inviter.id);
-    const logChannel = member.guild.channels.find(channel => channel.name === "simo");
-    logChannel.send(`Invited by: <@${inviter.id}>`);
-  });
+client.on('message', message => {
+var prefix = "$";
+
+    if (message.author.id === client.user.id) return;
+    if (message.guild) {
+   let embed = new Discord.RichEmbed()
+    let args = message.content.split(' ').slice(1).join(' ');
+if(message.content.split(' ')[0] == prefix + 'bc4') {
+    if (!args[1]) {
+message.channel.send("**bc <message>**");
+return;
+}
+        message.guild.members.forEach(m => {
+   if(!message.member.hasPermission('ADMINISTRATOR')) return;
+            var bc = new Discord.RichEmbed()
+            .addField('» السيرفر :', `${message.guild.name}`)
+            .addField(' » الرسالة : ', args)
+            .setColor('#ff0000')
+            // m.send(`[${m}]`);
+            m.send(`${m}`,{embed: bc});
+        });
+    }
+    } else {
+        return;
+    }
 });
+
+
+
+ 
+const devs = ['520629080333352976' , '' , '' , ''];
+const adminprefix = "//";
+client.on('message', message => {
+    var argresult = message.content.split(` `).slice(1).join(' ');
+      if (!devs.includes(message.author.id)) return;
+     
+  if (message.content.startsWith(adminprefix + 'ply')) {
+    client.user.setGame(argresult);
+      message.channel.sendMessage(`**:white_check_mark:   ${argresult}**`)
+  } else
+  if (message.content.startsWith(adminprefix + 'wt')) {
+  client.user.setActivity(argresult, {type:'WATCHING'});
+      message.channel.sendMessage(`**:white_check_mark:   ${argresult}**`)
+  } else
+  if (message.content.startsWith(adminprefix + 'ls')) {
+  client.user.setActivity(argresult , {type:'LISTENING'});
+      message.channel.sendMessage(`**:white_check_mark:   ${argresult}**`)
+  } else
+  if (message.content.startsWith(adminprefix + 'st')) {
+    client.user.setGame(argresult, "https://www.twitch.tv/idk");
+      message.channel.sendMessage(`**:white_check_mark:   ${argresult}**`)
+  }
+  });
 
 client.login(process.env.BOT_TOKEN);
